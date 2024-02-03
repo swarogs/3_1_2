@@ -30,47 +30,38 @@ public class UserController {
 	}
 
 	@GetMapping("/creat_user")
-	public String getCreatUser(Model model) {
+	public String creatUserFrom(Model model) {
 		model.addAttribute("user", new User());
 		return "creat_user";
 	}
 
 	@PostMapping("/creat_user")
-	public String getAddUser(@ModelAttribute("user") User user1) {
+	public String addUser(@ModelAttribute("user") User user1) {
 		userService.addUser(user1);
 		return "redirect:/";
 	}
 
 	@GetMapping("/update_user")
-	public String getWhatUpdateUser(Model model) {
+	public String updateUserFrom(Model model) {
 		model.addAttribute("userU", new User());
 		return "update_user";
 	}
 
 	@PostMapping("/update_user")
-	public String getUpdateUser(@ModelAttribute("userU") User user) {
-		try {
-			userService.updateUser(user.getId(), user);
-		} catch (Exception e) {
-			System.out.println("No this user!");
-		}
+	public String updateUser(@ModelAttribute("userU") User user) {
+		userService.updateUser(user.getId(), user);
 		return "redirect:/";
 	}
 
 	@GetMapping("/delete_user")
-	public String getWhatDeleteUser(Model model) {
+	public String deleteUserFrom(Model model) {
 		model.addAttribute("userD", new User());
 		return "delete_user";
 	}
 
 	@PostMapping("/delete_user")
-	public String getDeleteUser(@ModelAttribute("userD") User user) {
-		try {
-			userService.deleteUser(user.getId());
-		} catch (Exception e) {
-			System.out.println("No this user!");
-		}
-
+	public String deleteUser(@ModelAttribute("userD") User user) {
+		userService.deleteUser(user.getId());
 		return "redirect:/";
 	}
 

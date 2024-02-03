@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @Service
+@Transactional
 public class UserServicelmpl implements web.service.UserService {
 
     private final UserDao userDao;
@@ -20,31 +21,32 @@ public class UserServicelmpl implements web.service.UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
-
     @Override
-    @Transactional
     public void addUser(User user) {
         userDao.addUser(user);
     }
-
     @Override
-    @Transactional
     public void deleteUser(int userId) {
-        userDao.deleteUser(userId);
+        try {
+            userDao.deleteUser(userId);
+        } catch (Exception e) {
+            throw new RuntimeException("no this user " + e);
+        }
     }
-
     @Override
-    @Transactional
     public void updateUser(int id, User user) {
-        userDao.updateUser(id, user);
+        try {
+            userDao.updateUser(id, user);
+        } catch (Exception e) {
+            throw new RuntimeException("no this user " + e);
+        }
     }
-
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User getUser(int userId) {
         return userDao.getUser(userId);
     }
