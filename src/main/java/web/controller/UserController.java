@@ -22,7 +22,7 @@ public class UserController {
 		this.userService = usersService;
 	}
 
-	@RequestMapping(value = "/")                            //index
+	@RequestMapping(value = "/")
 	public String getAllUsers(Model model) {
 		List<User> allUsers = userService.getAllUsers();
 		model.addAttribute("allUsers", allUsers);
